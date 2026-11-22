@@ -2,34 +2,45 @@ expenses = []
 
 def add_expense(expenses):
     while True:
-        expense_type = input("Enter expense type: ")
-        expense_type = expense_type.strip().lower()
-        if expense_type == "":
+        category = input("Enter expense type: ")
+        category = category.strip().lower()
+        if category == "":
             print("Expense type cannot be empty.")
             continue
         break
 
     while True:
-        expense_amount = input("Enter expense amount: ")
+        amount = input("Enter expense amount: ")
         try:
-            expense_amount = float(expense_amount)
+            amount = float(amount)
         except ValueError:
             print("Pls enter a valid amount.")
             continue
-        if expense_amount <= 0:
+        if amount <= 0:
             print("Amount must be greater than zero.")
             continue
         break
 
-    expense_disc = input("Enter expense description: ")
-    expense_disc = expense_disc.strip()
+    description = input("Enter expense description: ")
+    description = description.strip()
 
 
-    details_expense = {"category" : expense_type,
-                       "amount" : expense_amount,
-                       "description" : expense_disc}
-    expenses.append(details_expense)
+    details = {"category" : category,
+               "amount" : amount,
+               "description" : description}
+    expenses.append(details)
     print("Expense added successfully.\n")
+
+def view_expenses(expenses):
+    if not expenses:
+        print("No expenses yet.")
+        return
+
+    for expense in expenses:
+        print(f"Expense category : {expense['category']}")
+        print(f"Expense amount : {expense['amount']:.2f}")
+        print(f"Expense description : {expense['description']}")
+        print()
 
 def show_menu():
     print("------Select option------")
@@ -49,7 +60,7 @@ while True:
 
 
     elif option == "2":
-        print("View expense selected.\n")
+        view_expenses(expenses)
 
 
     elif option == "3":
