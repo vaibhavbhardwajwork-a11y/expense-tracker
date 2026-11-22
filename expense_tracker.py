@@ -1,7 +1,14 @@
 expenses = []
 
 def add_expense(expenses):
-    expense_type = input("Enter expense type: ")
+    while True:
+        expense_type = input("Enter expense type: ")
+        expense_type = expense_type.strip().lower()
+        if expense_type == "":
+            print("Expense type cannot be empty.")
+            continue
+        break
+
     while True:
         expense_amount = input("Enter expense amount: ")
         try:
@@ -9,15 +16,20 @@ def add_expense(expenses):
         except ValueError:
             print("Pls enter a valid amount.")
             continue
-        if expense_amount < 0:
-            print("Amount cannot be negaative")
+        if expense_amount <= 0:
+            print("Amount must be greater than zero.")
             continue
         break
 
+    expense_disc = input("Enter expense description: ")
+    expense_disc = expense_disc.strip()
+
 
     details_expense = {"category" : expense_type,
-                       "amount" : expense_amount}
+                       "amount" : expense_amount,
+                       "description" : expense_disc}
     expenses.append(details_expense)
+    print("Expense added successfully.\n")
 
 def show_menu():
     print("------Select option------")
@@ -33,7 +45,7 @@ while True:
 
     if option == "1":
         add_expense(expenses)
-        print("Added expense succesfully.\n")
+
 
 
     elif option == "2":
